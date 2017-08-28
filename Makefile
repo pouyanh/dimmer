@@ -1,4 +1,4 @@
-MCU=atmega162
+MCU=atmega8
 
 CC=avr-gcc
 LD=avr-objcopy
