@@ -1,1 +1,3 @@
 /build
+/schema/*.pdsbak
+/schema/*.workspace
