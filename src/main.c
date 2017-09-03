@@ -8,7 +8,7 @@
 
 #include "addrs.h"
 
-void main(void) {
+int main(void) {
 	DDRD |= 0xFF;
 
 	unsigned char v[4][10] = {
@@ -19,21 +19,16 @@ void main(void) {
 	};
 	
 	while (1) {
-		unsigned char i = 0;
+		unsigned char i, j = 0;
 		for (i = 0; i < 10; i++) {
-			PORTD |= 1 << PD7; // Disable Selector
-			PORTD = 0x00 | v[0][i]; // PUT v[0][i] on Data, Device 0
-
-			PORTD |= 1 << PD7; // Disable Selector
-			PORTD = 0x10 | v[1][i]; // PUT v[1][i] on Data, Device 1
-
-			PORTD |= 1 << PD7; // Disable Selector
-			PORTD = 0x20 | v[2][i]; // PUT v[2][i] on Data, Device 2
-
-			PORTD |= 1 << PD7; // Disable Selector
-			PORTD = 0x30 | v[3][i]; // PUT v[3][i] on Data, Device 3
+			for (j = 0; j < 4; j++) {
+				PORTD |= 1 << PD7; // Disable Selector
+				PORTD = (j * 16) | v[j][i]; // PUT v[j][i] on Data, Device j
+			}
 
 			_delay_ms(100);
 		}
 	}
+
+	return 0;
 }
